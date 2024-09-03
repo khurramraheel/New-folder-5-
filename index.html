@@ -1,0 +1,69 @@
+<style>
+    select {
+        position: absolute;
+        right: 100px;
+        top: 0
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.3/axios.min.js"></script>
+
+<img src="" width="500" id="weatherIcon" alt="">
+<h1 id="temperatureTag"></h1>
+
+<select id="citySelector" onchange="getWeather(citySelector.value)">
+    <option>Lahore</option>
+    <option>London</option>
+    <option>Quetta</option>
+    <option>Sydney</option>
+    <option>Moscow</option>
+    <option>NewYork</option>
+    <option>Dubai</option>
+</select>
+
+<!-- API ki 2 types -->
+<!-- functionalo API -->
+<!-- document.createELement() -->
+<!-- document.getElementById -->
+
+
+<!-- REstAPi -->
+<!-- http://api.weatherapi.com/v1/current.json?key=24df5fcf9b6c4eaebb770740222103&q=faisalabad&aqi=no -->
+<!-- POST, new data create krna, 
+koi secure data bhejna ho
+
+GET, data mngwana h 
+DELETE, data delete kren
+PUT, data update krna -->
+
+<!-- code ki 2 types  -->
+<!-- sync code, line by line chlega -->
+
+<!-- async -->
+<!-- apne time per complete hota,yeh baaqi code ka wait nahi karega -->
+
+<script>
+
+
+
+    function getWeather(location) {
+        axios.get('http://api.weatherapi.com/v1/current.json?key=24df5fcf9b6c4eaebb770740222103&q=' + location +'&aqi=no')
+        .then(function (resp) {
+            // then wala function tab 
+            // chlta jab APi se successfully response ajye
+
+            console.log(resp.data.current.temp_c);
+            console.log(resp.data.current);
+            temperatureTag.innerText = resp.data.current.temp_c;
+            weatherIcon.src = 'http://' + resp.data.current.condition.icon;
+
+        }).catch(function(err){
+            // catch tab chlta jab request ki waja
+            // se cmplete na hosake
+
+            console.log('some error agya ')
+            console.log(err)
+        });
+    }
+
+</script>
